@@ -285,7 +285,12 @@ function buildZIP (ents, data) {
                 if (encoding != 'base64')
                 throw new Error(`Unsupported encoding for ${ent.name} (${ent.id}): ${encoding}`);
             */
-            zip.file(filepath, data[ent.id].response.content.text/*, { base64: true }*/);
+           let b64 = true;
+           if (encoding != 'base64') {
+            b64 = false;
+           }
+            
+            zip.file(filepath, data[ent.id].response.content.text, { base64: b64 });
         } catch (e) {
             console.log(e);
         }
