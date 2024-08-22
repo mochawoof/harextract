@@ -177,8 +177,10 @@ function loadHARJSON (har) {
         harent.pathcomps = fullpath; // .path string will be set below
         if (!ent.response.content.text)
             harent.error = 'No content.';
-        else if (ent.response.content.encoding != 'base64')
+        /*
+            else if (ent.response.content.encoding != 'base64')
             harent.error = "Can't decode.";
+        */
         if (harent.error) {
             console.log(`harextract: skipped ${harent.name} (${id}): ${harent.error}`);
             skipped.push(harent);
@@ -279,9 +281,11 @@ function buildZIP (ents, data) {
             if (filepath.startsWith('/'))
                 filepath = filepath.substring(1);
             let encoding = data[ent.id].response.content.encoding;
-            if (encoding != 'base64')
+            /*
+                if (encoding != 'base64')
                 throw new Error(`Unsupported encoding for ${ent.name} (${ent.id}): ${encoding}`);
-            zip.file(filepath, data[ent.id].response.content.text, { base64: true });
+            */
+            zip.file(filepath, data[ent.id].response.content.text/*, { base64: true }*/);
         } catch (e) {
             console.log(e);
         }
