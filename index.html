@@ -172,6 +172,9 @@ function loadHARJSON (har) {
         let harent = { id: id };
         let fullpath = new URL(ent.request.url).pathname.split('/');
         harent.name = fullpath.pop();
+        if (harent.name.trim() == "") {
+            harent.name = "/";
+        }
         harent.type = ent.response.content.mimeType; 
         harent.size = ent.response.content.size;
         harent.pathcomps = fullpath; // .path string will be set below
